@@ -31,7 +31,7 @@ class ConvertCurrencyVC: UIViewController {
     var keyTo = String()
     var valueTo = String()
     
-  let disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
     
     //MARK: - viewdidlaod
     override func viewDidLoad() {
