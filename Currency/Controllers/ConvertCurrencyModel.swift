@@ -11,5 +11,17 @@ class ConvertCurrencyModel:Codable{
     var timestamp: Int?
     var base, date: String?
     var rates: [String: Double]?
+    var error:ErrorModel?
 }
 
+
+struct ErrorModel : Codable {
+    var code: Int?
+    var type: String?
+}
+
+
+class CountryCurrency{
+    var country:String?
+    var currency:Double?
+}

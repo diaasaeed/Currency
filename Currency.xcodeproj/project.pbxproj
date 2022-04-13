@@ -32,7 +32,7 @@
 		0104F3B82805DBE900371141 /* ConvertCurrencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104F3B42805DBE900371141 /* ConvertCurrencyViewModel.swift */; };
 		0104F3B92805DBE900371141 /* ConvertCurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104F3B52805DBE900371141 /* ConvertCurrencyModel.swift */; };
 		0104F3BA2805DBE900371141 /* ConvertCurrencyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104F3B62805DBE900371141 /* ConvertCurrencyVC.swift */; };
-		0104F3BB2805DBE900371141 /* interactorConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104F3B72805DBE900371141 /* interactorConvert.swift */; };
+		0190C34128067B2C00B2BB06 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190C34028067B2C00B2BB06 /* Protocol.swift */; };
 		A1B0D52289E6E759D4163AC8 /* Pods_Currency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F961A6D1417574416E2C65A /* Pods_Currency.framework */; };
 /* End PBXBuildFile section */
 
@@ -85,7 +85,7 @@
 		0104F3B42805DBE900371141 /* ConvertCurrencyViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertCurrencyViewModel.swift; sourceTree = "<group>"; };
 		0104F3B52805DBE900371141 /* ConvertCurrencyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertCurrencyModel.swift; sourceTree = "<group>"; };
 		0104F3B62805DBE900371141 /* ConvertCurrencyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertCurrencyVC.swift; sourceTree = "<group>"; };
-		0104F3B72805DBE900371141 /* interactorConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = interactorConvert.swift; sourceTree = "<group>"; };
+		0190C34028067B2C00B2BB06 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		5D09AA999F34730212B6FC4E /* Pods-Currency.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Currency.release.xcconfig"; path = "Target Support Files/Pods-Currency/Pods-Currency.release.xcconfig"; sourceTree = "<group>"; };
 		732E1B57B8EED142261AC3A7 /* Pods-Currency.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Currency.debug.xcconfig"; path = "Target Support Files/Pods-Currency/Pods-Currency.debug.xcconfig"; sourceTree = "<group>"; };
 		7F961A6D1417574416E2C65A /* Pods_Currency.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Currency.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,6 +238,7 @@
 				0104F3A22805DBDD00371141 /* encodableEX.swift */,
 				0104F3A32805DBDD00371141 /* buttonEX.swift */,
 				0104F3A42805DBDD00371141 /* StringEX.swift */,
+				0190C34028067B2C00B2BB06 /* Protocol.swift */,
 			);
 			path = Extention;
 			sourceTree = "<group>";
@@ -245,10 +246,9 @@
 		0104F3B32805DBE900371141 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0104F3B62805DBE900371141 /* ConvertCurrencyVC.swift */,
 				0104F3B42805DBE900371141 /* ConvertCurrencyViewModel.swift */,
 				0104F3B52805DBE900371141 /* ConvertCurrencyModel.swift */,
-				0104F3B62805DBE900371141 /* ConvertCurrencyVC.swift */,
-				0104F3B72805DBE900371141 /* interactorConvert.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -457,10 +457,10 @@
 				0104F3AE2805DBDD00371141 /* buttonEX.swift in Sources */,
 				0104F33D2805DAAC00371141 /* SceneDelegate.swift in Sources */,
 				0104F38C2805DBC500371141 /* API URls.swift in Sources */,
-				0104F3BB2805DBE900371141 /* interactorConvert.swift in Sources */,
 				0104F3B82805DBE900371141 /* ConvertCurrencyViewModel.swift in Sources */,
 				0104F3BA2805DBE900371141 /* ConvertCurrencyVC.swift in Sources */,
 				0104F38D2805DBC500371141 /* API.swift in Sources */,
+				0190C34128067B2C00B2BB06 /* Protocol.swift in Sources */,
 				0104F3A52805DBDD00371141 /* imageViewEX.swift in Sources */,
 				0104F3A92805DBDD00371141 /* DateEX.swift in Sources */,
 				0104F3B92805DBE900371141 /* ConvertCurrencyModel.swift in Sources */,

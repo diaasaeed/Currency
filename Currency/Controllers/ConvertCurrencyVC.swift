@@ -9,9 +9,13 @@ import UIKit
 import RxCocoa
 import RxSwift
 
+enum typeCurrency {
+    case from
+    case to
+}
 
 class ConvertCurrencyVC: UIViewController {
-
+    
     //MARK: - outlet
     @IBOutlet weak var viewFrom: UIView!
     @IBOutlet weak var fromLable: UILabel!
@@ -24,45 +28,172 @@ class ConvertCurrencyVC: UIViewController {
     
     //MARK: - variabels
     var isSwip = false
-    
     var keyFrom = String()
     var valueFrom = String()
-    
     var keyTo = String()
     var valueTo = String()
-    
     let disposeBag = DisposeBag()
+    var viewModel  = ConvertCurrencyViewModel()
+    
+    var toolBar = UIToolbar()
+    var pickerView  = UIPickerView()
+    var currencyType:typeCurrency?
+    var rowSelected = 0
     
     //MARK: - viewdidlaod
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        currencyFromTF.keyboardType = .asciiCapableNumberPad
+        currencyToTF.keyboardType = .asciiCapableNumberPad
+        self.navigationItem.title = "Convert Currency"
         let tapFrom = UITapGestureRecognizer(target: self, action: #selector(self.handleTapFrom(_:)))
         viewFrom.addGestureRecognizer(tapFrom)
         
         let tapTo = UITapGestureRecognizer(target: self, action: #selector(self.handleTapTo(_:)))
         viewTo.addGestureRecognizer(tapTo)
-    }
+        
+        currencyFromTF.addTarget(self, action: #selector(fromTFAction(_:)),for: .editingChanged)
 
+        pickerView = UIPickerView.init()
+        callAllFunctions()
+
+     }
+    
+ 
     //MARK: - actions
     @objc func handleTapFrom(_ sender: UITapGestureRecognizer? = nil) {
-        // handling code
         print("From")
-    }
- 
-    @objc func handleTapTo(_ sender: UITapGestureRecognizer? = nil) {
-        // handling code
-        print("To")
+        currencyType = .from
+        pickerViewTap()
+        pickerView.reloadAllComponents()
+        
     }
     
+    @objc func handleTapTo(_ sender: UITapGestureRecognizer? = nil) {
+        print("To")
+        currencyType = .to
+        pickerViewTap()
+        pickerView.reloadAllComponents()
+    }
+    
+    @objc func fromTFAction(_ textField: UITextField) {
+        self.currencyToTF.text = ""
+    }
+    
+    
     @IBAction func swipBTN(_ sender: Any) {
-        
         
         
     }
     
     @IBAction func detailsBTN(_ sender: Any) {
-        
+        self.viewModel.fromCurrencyValue = Double(self.currencyFromTF.text ?? "") ?? 0.0
+        self.viewModel.calculatorCurrency()
+        view.endEditing(true)
     }
+    
+    
+    //MARK: - funtions
+
+    
+    func callAllFunctions(){
+        viewModel.getCountry()
+        SubscribeToResponseAllCurrency()
+        SelectRowCurrency()
+        subscribeValueCounrty()
+        subscribeDefaultValue()
+        subscribeTotalCurrency()
+    }
+    
+    func SubscribeToResponseAllCurrency(){
+        viewModel.CurrencyModelObservable.asObservable().bind(to: self.pickerView.rx.itemTitles) { (row, element) in
+            return element.country ?? ""
+        }
+        .disposed(by: disposeBag)
+    }
+    
+    func SelectRowCurrency(){
+        pickerView.rx.itemSelected
+            .subscribe { (event) in
+                switch event {
+                case .next(let selected):
+                    print("You selected #\(selected.row)")
+                    self.rowSelected = selected.row
+                default:
+                    break
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func subscribeValueCounrty(){
+        self.viewModel.CountryStringObservable.subscribe(onNext: { (value) in
+            if self.currencyType == .from {
+                self.fromLable.text = value
+            }else{
+                self.toLable.text = value
+            }
+        }).disposed(by: disposeBag)
+    }
+    
+ 
+    func subscribeDefaultValue(){
+        self.viewModel.DefaultCurrencyDoubleObservable.subscribe(onNext: { (value) in
+            self.currencyToTF.text = "\(value.getTwoDigits)" // EGP
+            self.currencyFromTF.text = "\(1)" // USD
+        }).disposed(by: disposeBag)
+
+    }
+    
+    func subscribeTotalCurrency(){
+        self.viewModel.totalCurrencyDoubleObservable.subscribe(onNext: { (value) in
+            self.currencyToTF.text = "\(value.getTwoDigits)"
+        }).disposed(by: disposeBag)
+    }
+    
 }
 
+//MARK: - picker View
+extension ConvertCurrencyVC {
+    func pickerViewTap(){
+        pickerView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        pickerView.setValue(UIColor.black, forKey: "textColor")
+        pickerView.autoresizingMask = .flexibleWidth
+        pickerView.contentMode = .center
+        pickerView.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 300)
+        self.view.addSubview(pickerView)
+        
+        toolBar.barStyle = .default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = .black
+        toolBar.sizeToFit()
+        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 50))
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.onDoneButtonTapped))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelTapped))
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        
+        self.view.addSubview(toolBar)
+    }
+    
+    @objc func cancelTapped() {
+        toolBar.removeFromSuperview()
+        pickerView.removeFromSuperview()
+    }
+    
+    @objc func onDoneButtonTapped() {
+        viewModel.indexCurrencySelected = self.rowSelected
+        viewModel.getCountryTitle()
+        toolBar.removeFromSuperview()
+        pickerView.removeFromSuperview()
+        
+        if currencyType == .to{
+            self.currencyToTF.text = ""
+            self.viewModel.countryToIndex = self.rowSelected
+            self.currencyFromTF.becomeFirstResponder()
+        }else{
+            self.viewModel.countryFromIndex = self.rowSelected
+        }
+    }
+}

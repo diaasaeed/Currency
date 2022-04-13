@@ -7,95 +7,58 @@
 
 import Foundation
 import Alamofire
-
-
-enum httpHeadersType{
-    /// add language header
-    case langOnly
-    /// add authurazation header
-    case   token
-    /// add language and authorization
-    case   both
-    /// add authorization for sending notification from firebase
-    case chatNotification
-    /// add  no headers
-    case   none
-}
-
-
-/// indicator appearance type
-enum IndicatorType {
-    /// the regular loading of the application
-    case regular
-    /// custome one may be added in specific request
-    case custom
-}
-/// get the headers depends on types
-/// - Parameter type: type of headers
-/// - Returns: http headers
-private func getHeaders(type:httpHeadersType) -> HTTPHeaders?{
-    let HttpHeaders:HTTPHeaders = [ "Content-Type": "application/json"  ]
-    if type == .none{
-        print("No thing")
-    }
-    return HttpHeaders
-}
-
-
-
+   
 extension AFError{
     var noInterNet: String{
         return "check your internet Connection"
     }
 }
 
-class APIClient: APIClientProtocol {
+class APIClient {
+     static let shared = APIClient()
+    private init() { }
 
-     private var indicatorType : IndicatorType? = .regular
-    static var api = APIClient()
-    /// initialize API Client Class with
-    /// - Parameter indicatorType: indicator type
-    init(indicatorType : IndicatorType? = .regular){
-        self.indicatorType = indicatorType
-    }
-
-
- //MARK: - perform request without body
-    @discardableResult
-    func performRequest<T>(url: String, method: HTTPMethod, completion: @escaping (Result<T, AFError>, Int?) -> Void) -> DataRequest where T : Decodable {
-        if self.indicatorType == .regular {
-//            Indicator.shared.showProgressView()
-        }
+    func getData<T: Decodable>(url: String, method: HTTPMethod ,params: Parameters?, encoding: ParameterEncoding ,headers: HTTPHeaders? ,completion: @escaping (T?,Int, Error?)->()) {
         
-        
-        return AF.request(url, method: method, parameters: nil, encoding: JSONEncoding.default, headers: getHeaders(type: .none)).responseDecodable (decoder: JSONDecoder()){ (response: DataResponse<T, AFError>) in
-
-            if self.indicatorType == .regular {
-//                Indicator.shared.hideProgressView()
+        AF.request(url, method: method, parameters: params , encoding: encoding, headers: headers)
+            .validate(statusCode: 200...300)
+            .responseJSON { (response) in
+                print("parameters",params)
+                print("Status code ->",response.response?.statusCode ?? 0)
+                switch response.result {
+                case .success(_):
+                    print("Responce ",response.value)
+                    guard let data = response.data else { return }
+                    do {
+                        let jsonData = try JSONDecoder().decode(T.self, from: data)
+                        completion(jsonData,response.response?.statusCode ?? 0, nil)
+                        
+                    } catch let jsonError {
+                        print(jsonError.localizedDescription)
+                    }
+                    
+                case .failure(let error):
+                    // switch on Error Status Code
+                    print(error.localizedDescription)
+                    guard let data = response.data else { return }
+                    guard let statusCode = response.response?.statusCode else { return }
+                    print("Status code ->",response.response?.statusCode ?? 0)
+                    switch statusCode {
+                    case 400..<500:
+                        do {
+                            let jsonError = try JSONDecoder().decode(T.self, from: data)
+                            completion(jsonError,response.response?.statusCode ?? 0, nil)
+                            
+                        } catch let jsonError {
+                            print(jsonError)
+                        }
+                    default:
+                        completion(nil,response.response?.statusCode ?? 0, error)
+                    }
+                }
             }
-
-            debugPrint(response)
-            completion(response.result, response.response?.statusCode)
-        }
     }
-     
+    
 }
 
-
-
-protocol APIClientProtocol: AnyObject{
-
-    /// perform reguler request without parameters
-    /// - Parameters:
-    ///   - url: API URL
-    ///   - method: HTTP Method
-    ///   - headersType: HTTP headers
-    ///   - indicatorType: custom control of loading style
-    ///   - completion: clusure to excute
-    ///   - result : the result of decoded Model and error
-    ///   - statusCode: the API statusCode
-    /// - Returns: Alamofire Request
-    @discardableResult
-    func performRequest<T:Decodable>(url: String, method: HTTPMethod , completion:@escaping (_ result: Result<T, AFError>,_ statusCode:Int?)->Void) -> DataRequest
-
-}
+ 
