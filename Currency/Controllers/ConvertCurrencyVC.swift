@@ -27,11 +27,6 @@ class ConvertCurrencyVC: UIViewController {
     @IBOutlet weak var detailBu: UIButton!
     
     //MARK: - variabels
-    var isSwip = false
-    var keyFrom = String()
-    var valueFrom = String()
-    var keyTo = String()
-    var valueTo = String()
     let disposeBag = DisposeBag()
     var viewModel  = ConvertCurrencyViewModel()
     
@@ -46,6 +41,7 @@ class ConvertCurrencyVC: UIViewController {
         currencyFromTF.keyboardType = .asciiCapableNumberPad
         currencyToTF.isUserInteractionEnabled = false
         self.navigationItem.title = "Convert Currency"
+        
         let tapFrom = UITapGestureRecognizer(target: self, action: #selector(self.handleTapFrom(_:)))
         viewFrom.addGestureRecognizer(tapFrom)
         
@@ -55,8 +51,14 @@ class ConvertCurrencyVC: UIViewController {
         currencyFromTF.addTarget(self, action: #selector(fromTFAction(_:)),for: .editingChanged)
 
         pickerView = UIPickerView.init()
-        callAllFunctions()
 
+        InterNet.shared.checkInternet { (networkCheck) in
+            if networkCheck{
+                self.callAllFunctions()
+            }else{
+                self.showAlert(withTitle: false, msg: "No internet connections", compilition: nil)
+            }
+        }
      }
     
  
@@ -83,9 +85,8 @@ class ConvertCurrencyVC: UIViewController {
     }
     
     
-    @IBAction func swipBTN(_ sender: Any) {
-        
-        
+    @IBAction func switchBTN(_ sender: Any) {
+        switchCurrency()
     }
     
     @IBAction func detailsBTN(_ sender: Any) {
@@ -96,7 +97,7 @@ class ConvertCurrencyVC: UIViewController {
     
     
     //MARK: - funtions
-
+   
     
     func callAllFunctions(){
         viewModel.getCountry()
@@ -107,6 +108,7 @@ class ConvertCurrencyVC: UIViewController {
         subscribeTotalCurrency()
     }
     
+    //Picekr view 
     func SubscribeToResponseAllCurrency(){
         viewModel.CurrencyModelObservable.asObservable().bind(to: self.pickerView.rx.itemTitles) { (row, element) in
             return element.country ?? ""
@@ -128,6 +130,7 @@ class ConvertCurrencyVC: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    // get Selected country title
     func subscribeValueCounrty(){
         self.viewModel.CountryStringObservable.subscribe(onNext: { (value) in
             if self.currencyType == .from {
@@ -139,6 +142,7 @@ class ConvertCurrencyVC: UIViewController {
     }
     
  
+    //Set default value when open app at frist time
     func subscribeDefaultValue(){
         self.viewModel.DefaultCurrencyDoubleObservable.subscribe(onNext: { (value) in
             self.currencyToTF.text = "\(value.getTwoDigits)" // EGP
@@ -147,12 +151,26 @@ class ConvertCurrencyVC: UIViewController {
 
     }
     
+    // Get convert currency
     func subscribeTotalCurrency(){
         self.viewModel.totalCurrencyDoubleObservable.subscribe(onNext: { (value) in
             self.currencyToTF.text = "\(value.getTwoDigits)"
         }).disposed(by: disposeBag)
     }
-    
+ 
+    // Switch
+    func switchCurrency(){
+        self.viewModel.switchCurrency()
+        var swipKey = ""
+        var swipValue = ""
+        swipKey = self.fromLable.text ?? ""
+        self.fromLable.text  = self.toLable.text ?? ""
+        self.toLable.text  = swipKey
+        
+        swipValue = self.currencyFromTF.text ?? ""
+        self.currencyFromTF.text = self.currencyToTF.text ?? ""
+        self.currencyToTF.text  = swipValue
+    }
 }
 
 //MARK: - picker View

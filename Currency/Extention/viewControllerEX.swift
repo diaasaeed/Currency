@@ -75,9 +75,10 @@ extension UIViewController{
      /// create gester to the view to end editing
  
     /// conform the Internet class
-//    func interet(){
-//        InterNet.shared.checkInternet()
-//    }
+    func interet(){
+     
+       
+    }
     
     
     //MARK: - alert

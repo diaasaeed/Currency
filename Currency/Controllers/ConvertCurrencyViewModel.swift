@@ -102,6 +102,7 @@ class ConvertCurrencyViewModel{
     }
     
     
+    // Default value when open screen
     func getDefaultCurrency(){
         countryFromIndex = currenCycountry.firstIndex{ $0.country == "USD"} ?? 0
         countryToIndex = currenCycountry.firstIndex{ $0.country == "EGP"} ?? 0
@@ -110,5 +111,14 @@ class ConvertCurrencyViewModel{
         let currencyTo = self.currenCycountry[countryToIndex].currency ?? 0
         let total = (currencyTo/currencyFrom)*1
         self.DefaultCurrency.onNext(total)
+    }
+    
+    
+    func switchCurrency(){
+        var swip = 0 // to put the frist value
+        swip = self.countryFromIndex
+        self.countryFromIndex = countryToIndex
+        self.countryToIndex = swip
+        
     }
 }

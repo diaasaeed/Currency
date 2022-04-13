@@ -141,7 +141,7 @@
                                                         </constraints>
                                                         <state key="normal" image="up-and-down-opposite-double-arrows-side-by-side"/>
                                                         <connections>
-                                                            <action selector="swipBTN:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fYD-AR-rim"/>
+                                                            <action selector="switchBTN:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tDE-ee-oMP"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ajW-5D-8As">
