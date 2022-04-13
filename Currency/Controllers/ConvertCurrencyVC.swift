@@ -44,7 +44,7 @@ class ConvertCurrencyVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         currencyFromTF.keyboardType = .asciiCapableNumberPad
-        currencyToTF.keyboardType = .asciiCapableNumberPad
+        currencyToTF.isUserInteractionEnabled = false
         self.navigationItem.title = "Convert Currency"
         let tapFrom = UITapGestureRecognizer(target: self, action: #selector(self.handleTapFrom(_:)))
         viewFrom.addGestureRecognizer(tapFrom)
@@ -65,6 +65,7 @@ class ConvertCurrencyVC: UIViewController {
         print("From")
         currencyType = .from
         pickerViewTap()
+        view.endEditing(true)
         pickerView.reloadAllComponents()
         
     }
@@ -73,6 +74,7 @@ class ConvertCurrencyVC: UIViewController {
         print("To")
         currencyType = .to
         pickerViewTap()
+        view.endEditing(true)
         pickerView.reloadAllComponents()
     }
     
@@ -160,14 +162,14 @@ extension ConvertCurrencyVC {
         pickerView.setValue(UIColor.black, forKey: "textColor")
         pickerView.autoresizingMask = .flexibleWidth
         pickerView.contentMode = .center
-        pickerView.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 300)
+        pickerView.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 200, width: UIScreen.main.bounds.size.width, height: 200)
         self.view.addSubview(pickerView)
         
         toolBar.barStyle = .default
         toolBar.isTranslucent = true
         toolBar.tintColor = .black
         toolBar.sizeToFit()
-        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 50))
+        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 200, width: UIScreen.main.bounds.size.width, height: 50))
         
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.onDoneButtonTapped))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
