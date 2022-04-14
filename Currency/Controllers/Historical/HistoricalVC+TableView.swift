@@ -15,6 +15,11 @@ extension HistoricalVC: UITableViewDelegate , UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let chart = self.HistoricalTableView.dequeueReusableCell(withIdentifier: "ChartCell", for: indexPath) as! ChartCell
+
+            chart.chartCurrency.xElements = NSMutableArray(array: self.chartDate)
+            chart.chartCurrency.yElements = NSMutableArray(array: self.chartValue)
+            chart.chartCurrency.drawChart()
+            
             return chart
         }else{
             let cell = self.HistoricalTableView.dequeueReusableCell(withIdentifier: "CurrencyHistoricalCell", for: indexPath) as! CurrencyHistoricalCell

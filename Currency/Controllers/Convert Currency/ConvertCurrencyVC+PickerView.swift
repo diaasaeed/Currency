@@ -50,6 +50,8 @@ extension ConvertCurrencyVC {
             self.currencyFromTF.becomeFirstResponder()
         }else{
             self.viewModel.countryFromIndex = self.rowSelected
+            self.viewModel.fromCurrencyValue = Double(self.currencyFromTF.text ?? "") ?? 0.0
+            self.viewModel.calculatorCurrency()
         }
     }
 }

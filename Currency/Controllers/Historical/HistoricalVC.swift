@@ -20,6 +20,8 @@ class HistoricalVC: UIViewController {
     let disposeBag = DisposeBag()
     var lastThreeDays = [String]()
     var popularCurrency = [String]()
+    var chartDate = [Date]()
+    var chartValue = [Double]()
     
     //MARK: - view did load
     override func viewDidLoad() {
@@ -30,6 +32,8 @@ class HistoricalVC: UIViewController {
         viewModel.viweDidload()
         subscribeHistorical()
         subscribepopularCurrency()
+        subscribeChartValue()
+        subscribeChartDate()
         HistoricalTableView.delegate = self
         HistoricalTableView.dataSource = self
     }
@@ -43,7 +47,6 @@ class HistoricalVC: UIViewController {
     
     func subscribeHistorical(){
         viewModel.LastCurrencyObservable.subscribe(onNext: { (value) in
-            print("Data is last three" , value.count)
             self.lastThreeDays = value
             self.HistoricalTableView.reloadData()
         }).disposed(by: disposeBag)
@@ -52,11 +55,21 @@ class HistoricalVC: UIViewController {
     
     func subscribepopularCurrency(){
         viewModel.otherCurrenciesObservable.subscribe(onNext: { (value) in
-            print("Data is  other cuntries" , value.count)
             self.popularCurrency = value
         }).disposed(by: disposeBag)
     }
+ 
+    func subscribeChartDate(){
+        viewModel.ChartDateObservable.subscribe(onNext: { (value) in
+            self.chartDate = value
+        }).disposed(by: disposeBag)
+    }
     
+    func subscribeChartValue(){
+        viewModel.ChartvalueObservable.subscribe(onNext: { (value) in
+            self.chartValue = value
+        }).disposed(by: disposeBag)
+    }
 }
 
 //MARK: - error

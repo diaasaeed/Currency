@@ -32,34 +32,38 @@ class HistoricalViewModel{
         return LastCurrencyModelSubject
     }
 
-    var lastThreeDaysOBJ = [LastThreeDaysOBJ]() // use it to chart
+    // Chart Date
     var indexDay = 1 // use it to chart
-    private var ChartThreeDaysModelSubject = PublishSubject<[LastThreeDaysOBJ]>() // use it to chart
-    var ChartThreeDaysObservable : Observable<[LastThreeDaysOBJ]>{ // use it to chart
-        return ChartThreeDaysModelSubject
+    var dateChart = [Date]()
+    private var ChartDateModelSubject = PublishSubject<[Date]>() // use it to chart
+    var ChartDateObservable : Observable<[Date]>{ // use it to chart
+        return ChartDateModelSubject
+    }
+    
+    // Chart Value
+    var valueChart = [Double]()
+    private var ChartvalueModelSubject = PublishSubject<[Double]>() // use it to chart
+    var ChartvalueObservable : Observable<[Double]>{ // use it to chart
+        return ChartvalueModelSubject
     }
     
     //MARK: - when load
     func viweDidload(){
         GetlastThreeDays()
         getAllCountry()
-        print("FFDFSFSDFSDf",ConvertCurrencyData.fromCurrency ?? "")
+        
         myGroup.notify(queue: DispatchQueue.main, execute: {
             self.LastCurrencyModelSubject.onNext(self.lastCurrencyArr)
-
-            print("Finished all requests.")
-
         })
     }
     
-    //MARK:- get current Date
+    //MARK:- get last three  Date
     func getCurrentDate(num:Int)->String{
         guard let date = Calendar.current.date(byAdding: .day, value: -(num), to: Date()) else {   return ""   }
         let CurrentData = date.toString(withFormat: "YYYY-MM-dd")
         return CurrentData
     }
     
-    //MARK: - call last three days
     func GetlastThreeDays(){
         for i in 1..<4{
             let historicalDate = getCurrentDate(num: i)
@@ -106,6 +110,7 @@ class HistoricalViewModel{
         }
     }
     
+    // get final resulat and chart data
     func getResultLastThreeDays(){
         let countryFromIndex = self.LastCurrencycountry.firstIndex{ $0.country == self.ConvertCurrencyData.fromCountry ?? ""} ?? 0
         let currencyFrom = self.LastCurrencycountry[countryFromIndex].currency ?? 0.0
@@ -116,21 +121,19 @@ class HistoricalViewModel{
         let resultCurrency =  "\(result.getTwoDigits) \(countryTitleTo)"
         
         //chart
-        let lastObj = LastThreeDaysOBJ()
-        lastObj.value = result
         let date = Calendar.current.date(byAdding: .day, value: -(self.indexDay), to: Date())
+    
         self.indexDay+=1
         let CurrentData = date?.toString(withFormat: "YYYY MMM dd") ?? ""
-
-        lastObj.day = date
-        self.lastThreeDaysOBJ.append(lastObj)
-        print("result last three days is",result)
+        self.dateChart.append(date ?? Date()) //apped chart Date in array because it get from 3 call api
+        self.ChartDateModelSubject.onNext(self.dateChart)//chart Date
+        self.valueChart.append(result) //apped chart value in array because it get from 3 call api
+        self.ChartvalueModelSubject.onNext(valueChart)//chart value
         
         
-        self.ChartThreeDaysModelSubject.onNext(self.lastThreeDaysOBJ)//chart
-        
+        // thre day
         let resultWithDate = "\(CurrentData)\n\(resultCurrency)"
-        lastCurrencyArr.insert(resultWithDate, at: 0)
+        lastCurrencyArr.append(resultWithDate)
         self.LastCurrencyModelSubject.onNext(lastCurrencyArr)
 
     }
@@ -178,7 +181,6 @@ class HistoricalViewModel{
             let totalResualt = (currecny)/(currencyBase)*(ConvertCurrencyData.amount ?? 0)
             let resultCurrency = "\(totalResualt.getTwoDigits) \(i)"
             Currencies.append(resultCurrency)
-            print("other Currencies ", resultCurrency)
             self.otherCurrenciesModelSubject.onNext(Currencies)
         }
     }
@@ -188,8 +190,3 @@ class HistoricalViewModel{
     
 }
 
-
-class LastThreeDaysOBJ{
-    var day:Date?
-    var value:Double?
-}

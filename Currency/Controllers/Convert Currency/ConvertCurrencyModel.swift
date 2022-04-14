@@ -34,3 +34,4 @@ class MyConvertCurrencyOBJ{
     var toCounrty:String?
     var amount:Double?
 }
+

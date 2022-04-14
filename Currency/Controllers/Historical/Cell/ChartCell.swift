@@ -11,13 +11,12 @@ import HCLineChartView
 class ChartCell: UITableViewCell {
 
     @IBOutlet var chartCurrency: HCLineChartView!
-
+ 
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
-        chartCurrency.xElements = [Date() , Date() ,Date()  ]
-        chartCurrency.yElements = [1 , 4 , 2  ]
-        chartCurrency.drawChart()
+   
     }
  
+    
 }

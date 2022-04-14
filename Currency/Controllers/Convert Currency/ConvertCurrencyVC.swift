@@ -63,7 +63,6 @@ class ConvertCurrencyVC: UIViewController{
  
     //MARK: - actions
     @objc func handleTapFrom(_ sender: UITapGestureRecognizer? = nil) {
-        print("From")
         currencyType = .from
         pickerViewTap()
         view.endEditing(true)
@@ -72,7 +71,6 @@ class ConvertCurrencyVC: UIViewController{
     }
     
     @objc func handleTapTo(_ sender: UITapGestureRecognizer? = nil) {
-        print("To")
         currencyType = .to
         pickerViewTap()
         view.endEditing(true)
@@ -80,10 +78,8 @@ class ConvertCurrencyVC: UIViewController{
     }
     
     @objc func fromTFAction(_ textField: UITextField) {
-//        self.currencyToTF.text = ""
         self.viewModel.fromCurrencyValue = Double(self.currencyFromTF.text ?? "") ?? 0.0
         self.viewModel.calculatorCurrency()
-        print("XXXXXXX")
     }
     
     
