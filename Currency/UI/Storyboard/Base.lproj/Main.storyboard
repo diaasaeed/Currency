@@ -221,11 +221,42 @@
                         <outlet property="toLable" destination="net-Mq-Q1F" id="V06-qY-wKd"/>
                         <outlet property="viewFrom" destination="mkN-w5-GBS" id="eQ3-6U-G4Y"/>
                         <outlet property="viewTo" destination="2h5-Pn-qas" id="M98-Mu-YLu"/>
+                        <segue destination="gyD-1n-3ML" kind="push" id="9Yh-hk-WXA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="841" y="77"/>
+        </scene>
+        <!--HistoricalVC-->
+        <scene sceneID="YQg-gs-frq">
+            <objects>
+                <viewController storyboardIdentifier="HistoricalVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gyD-1n-3ML" customClass="HistoricalVC" customModule="Currency" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1jf-Gl-Z2G">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XGa-rV-tw3">
+                                <rect key="frame" x="0.0" y="88" width="414" height="150"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="Qn9-Km-hgT"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="XCi-zj-xSi"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="XGa-rV-tw3" firstAttribute="top" secondItem="XCi-zj-xSi" secondAttribute="top" id="Qbb-04-LzT"/>
+                            <constraint firstItem="XGa-rV-tw3" firstAttribute="leading" secondItem="XCi-zj-xSi" secondAttribute="leading" id="Yyn-V6-aWj"/>
+                            <constraint firstItem="XCi-zj-xSi" firstAttribute="trailing" secondItem="XGa-rV-tw3" secondAttribute="trailing" id="beP-QD-JDx"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Mt0-xg-JqJ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="55s-ud-HRK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1519" y="73"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3RH-A9-xFv">
@@ -251,6 +282,9 @@
         <image name="up-and-down-opposite-double-arrows-side-by-side" width="16" height="16"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGroupedBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

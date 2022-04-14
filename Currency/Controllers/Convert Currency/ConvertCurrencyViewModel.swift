@@ -31,7 +31,7 @@ class ConvertCurrencyViewModel{
         return ToCurrency
     }
     
-    
+    // total Convert currency
     private var totalCurrency =  PublishSubject<Double>()
     var totalCurrencyDoubleObservable : Observable<Double>{
         return totalCurrency
@@ -52,6 +52,10 @@ class ConvertCurrencyViewModel{
     var DefaultCurrencyDoubleObservable : Observable<Double>{
         return DefaultCurrency
     }
+    
+    
+    var myConvertCurrencyOBJ = MyConvertCurrencyOBJ()
+    
     //MARK:- request get all currency
     func getCountry(){
         let url = "\( URls.shared.latest)?access_key=\(access_key)"
@@ -99,6 +103,12 @@ class ConvertCurrencyViewModel{
         let total = (currencyTo/currencyFrom)*fromCurrencyValue
         self.totalCurrency.onNext(total)
         print("currencyFrom" , currencyFrom  , "currencyTo",currencyTo , "total",total.getTwoDigits)
+        
+        
+        myConvertCurrencyOBJ.fromCountry = self.currenCycountry[countryFromIndex].country ?? ""
+        myConvertCurrencyOBJ.toCounrty = self.currenCycountry[countryToIndex].country ?? ""
+        myConvertCurrencyOBJ.fromCurrency = currencyFrom
+        myConvertCurrencyOBJ.toCurrency = currencyTo
     }
     
     
@@ -111,6 +121,11 @@ class ConvertCurrencyViewModel{
         let currencyTo = self.currenCycountry[countryToIndex].currency ?? 0
         let total = (currencyTo/currencyFrom)*1
         self.DefaultCurrency.onNext(total)
+        
+        myConvertCurrencyOBJ.fromCountry = "USD"
+        myConvertCurrencyOBJ.toCounrty = "EGP"
+        myConvertCurrencyOBJ.fromCurrency = currencyFrom
+        myConvertCurrencyOBJ.toCurrency = currencyTo
     }
     
     

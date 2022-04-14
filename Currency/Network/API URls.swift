@@ -15,7 +15,7 @@ let access_key = "f84f6e05483fc918ccd604496a6ec406"
 class URls{
    static let shared = URls()
     
-    lazy fileprivate var Domain = "http://data.fixer.io/api/"
+    lazy var Domain = "http://data.fixer.io/api/"
     lazy var latest = "\(Domain)latest"
     
     

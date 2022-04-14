@@ -14,7 +14,7 @@ enum typeCurrency {
     case to
 }
 
-class ConvertCurrencyVC: UIViewController {
+class ConvertCurrencyVC: UIViewController{
     
     //MARK: - outlet
     @IBOutlet weak var viewFrom: UIView!
@@ -52,12 +52,11 @@ class ConvertCurrencyVC: UIViewController {
 
         pickerView = UIPickerView.init()
 
-        InterNet.shared.checkInternet { (networkCheck) in
-            if networkCheck{
-                self.callAllFunctions()
-            }else{
-                self.showAlert(withTitle: false, msg: "No internet connections", compilition: nil)
-            }
+        //Check internet connection
+        if Reachability.isConnectedToNetwork(){
+            self.callAllFunctions()
+        }else{
+            self.showAlert(withTitle: false, msg: "No internet connections", compilition: nil)
         }
      }
     
@@ -81,7 +80,10 @@ class ConvertCurrencyVC: UIViewController {
     }
     
     @objc func fromTFAction(_ textField: UITextField) {
-        self.currencyToTF.text = ""
+//        self.currencyToTF.text = ""
+        self.viewModel.fromCurrencyValue = Double(self.currencyFromTF.text ?? "") ?? 0.0
+        self.viewModel.calculatorCurrency()
+        print("XXXXXXX")
     }
     
     
@@ -90,9 +92,10 @@ class ConvertCurrencyVC: UIViewController {
     }
     
     @IBAction func detailsBTN(_ sender: Any) {
-        self.viewModel.fromCurrencyValue = Double(self.currencyFromTF.text ?? "") ?? 0.0
-        self.viewModel.calculatorCurrency()
         view.endEditing(true)
+        let historical = self.storyboard?.instantiateViewController(withIdentifier: "HistoricalVC") as! HistoricalVC
+        historical.ConvertCurrencyData = self.viewModel.myConvertCurrencyOBJ
+        self.navigationController?.pushViewController(historical, animated: true)
     }
     
     
@@ -173,47 +176,10 @@ class ConvertCurrencyVC: UIViewController {
     }
 }
 
-//MARK: - picker View
-extension ConvertCurrencyVC {
-    func pickerViewTap(){
-        pickerView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        pickerView.setValue(UIColor.black, forKey: "textColor")
-        pickerView.autoresizingMask = .flexibleWidth
-        pickerView.contentMode = .center
-        pickerView.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 200, width: UIScreen.main.bounds.size.width, height: 200)
-        self.view.addSubview(pickerView)
-        
-        toolBar.barStyle = .default
-        toolBar.isTranslucent = true
-        toolBar.tintColor = .black
-        toolBar.sizeToFit()
-        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 200, width: UIScreen.main.bounds.size.width, height: 50))
-        
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.onDoneButtonTapped))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelTapped))
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        
-        self.view.addSubview(toolBar)
-    }
-    
-    @objc func cancelTapped() {
-        toolBar.removeFromSuperview()
-        pickerView.removeFromSuperview()
-    }
-    
-    @objc func onDoneButtonTapped() {
-        viewModel.indexCurrencySelected = self.rowSelected
-        viewModel.getCountryTitle()
-        toolBar.removeFromSuperview()
-        pickerView.removeFromSuperview()
-        
-        if currencyType == .to{
-            self.currencyToTF.text = ""
-            self.viewModel.countryToIndex = self.rowSelected
-            self.currencyFromTF.becomeFirstResponder()
-        }else{
-            self.viewModel.countryFromIndex = self.rowSelected
-        }
+
+//MARK: - error 
+extension ConvertCurrencyVC: ErrorProtocol{
+    func featching(error: String) {
+        self.showAlert(withTitle: false, msg: error, compilition: nil)
     }
 }

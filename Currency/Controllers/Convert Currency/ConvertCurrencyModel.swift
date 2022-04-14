@@ -25,3 +25,11 @@ class CountryCurrency{
     var country:String?
     var currency:Double?
 }
+
+
+class MyConvertCurrencyOBJ{
+    var fromCurrency:Double?
+    var fromCountry:String?
+    var toCurrency:Double?
+    var toCounrty:String?
+}

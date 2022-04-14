@@ -23,7 +23,7 @@ class APIClient {
         AF.request(url, method: method, parameters: params , encoding: encoding, headers: headers)
             .validate(statusCode: 200...300)
             .responseJSON { (response) in
-                print("parameters",params)
+//                print("parameters",params)
                 print("Status code ->",response.response?.statusCode ?? 0)
                 switch response.result {
                 case .success(_):

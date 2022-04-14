@@ -33,6 +33,10 @@
 		0104F3B92805DBE900371141 /* ConvertCurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104F3B52805DBE900371141 /* ConvertCurrencyModel.swift */; };
 		0104F3BA2805DBE900371141 /* ConvertCurrencyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104F3B62805DBE900371141 /* ConvertCurrencyVC.swift */; };
 		0190C34128067B2C00B2BB06 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190C34028067B2C00B2BB06 /* Protocol.swift */; };
+		01B2B4E32807414A0078B349 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2B4E22807414A0078B349 /* InternetConnection.swift */; };
+		01B2B4EA28077D480078B349 /* HistoricalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2B4E928077D480078B349 /* HistoricalViewModel.swift */; };
+		01B2B4EF2807885C0078B349 /* ConvertCurrencyVC+PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2B4EE2807885C0078B349 /* ConvertCurrencyVC+PickerView.swift */; };
+		01B2B4F4280788E00078B349 /* HistoricalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2B4F3280788E00078B349 /* HistoricalVC.swift */; };
 		A1B0D52289E6E759D4163AC8 /* Pods_Currency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F961A6D1417574416E2C65A /* Pods_Currency.framework */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +90,10 @@
 		0104F3B52805DBE900371141 /* ConvertCurrencyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertCurrencyModel.swift; sourceTree = "<group>"; };
 		0104F3B62805DBE900371141 /* ConvertCurrencyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertCurrencyVC.swift; sourceTree = "<group>"; };
 		0190C34028067B2C00B2BB06 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		01B2B4E22807414A0078B349 /* InternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
+		01B2B4E928077D480078B349 /* HistoricalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalViewModel.swift; sourceTree = "<group>"; };
+		01B2B4EE2807885C0078B349 /* ConvertCurrencyVC+PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConvertCurrencyVC+PickerView.swift"; sourceTree = "<group>"; };
+		01B2B4F3280788E00078B349 /* HistoricalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalVC.swift; sourceTree = "<group>"; };
 		5D09AA999F34730212B6FC4E /* Pods-Currency.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Currency.release.xcconfig"; path = "Target Support Files/Pods-Currency/Pods-Currency.release.xcconfig"; sourceTree = "<group>"; };
 		732E1B57B8EED142261AC3A7 /* Pods-Currency.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Currency.debug.xcconfig"; path = "Target Support Files/Pods-Currency/Pods-Currency.debug.xcconfig"; sourceTree = "<group>"; };
 		7F961A6D1417574416E2C65A /* Pods_Currency.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Currency.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -239,6 +247,7 @@
 				0104F3A32805DBDD00371141 /* buttonEX.swift */,
 				0104F3A42805DBDD00371141 /* StringEX.swift */,
 				0190C34028067B2C00B2BB06 /* Protocol.swift */,
+				01B2B4E22807414A0078B349 /* InternetConnection.swift */,
 			);
 			path = Extention;
 			sourceTree = "<group>";
@@ -246,11 +255,30 @@
 		0104F3B32805DBE900371141 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				01B2B4E828077AAF0078B349 /* Historical */,
+				01B2B4E728077A930078B349 /* Convert Currency */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		01B2B4E728077A930078B349 /* Convert Currency */ = {
+			isa = PBXGroup;
+			children = (
 				0104F3B62805DBE900371141 /* ConvertCurrencyVC.swift */,
+				01B2B4EE2807885C0078B349 /* ConvertCurrencyVC+PickerView.swift */,
 				0104F3B42805DBE900371141 /* ConvertCurrencyViewModel.swift */,
 				0104F3B52805DBE900371141 /* ConvertCurrencyModel.swift */,
 			);
-			path = Controllers;
+			path = "Convert Currency";
+			sourceTree = "<group>";
+		};
+		01B2B4E828077AAF0078B349 /* Historical */ = {
+			isa = PBXGroup;
+			children = (
+				01B2B4F3280788E00078B349 /* HistoricalVC.swift */,
+				01B2B4E928077D480078B349 /* HistoricalViewModel.swift */,
+			);
+			path = Historical;
 			sourceTree = "<group>";
 		};
 		D3EE35DFDAB17729ADAEB3EE /* Frameworks */ = {
@@ -450,6 +478,8 @@
 				0104F3AF2805DBDD00371141 /* StringEX.swift in Sources */,
 				0104F3452805DAAC00371141 /* Currency.xcdatamodeld in Sources */,
 				0104F38B2805DBC500371141 /* NetworkCheck.swift in Sources */,
+				01B2B4EF2807885C0078B349 /* ConvertCurrencyVC+PickerView.swift in Sources */,
+				01B2B4EA28077D480078B349 /* HistoricalViewModel.swift in Sources */,
 				0104F3AA2805DBDD00371141 /* textViewEX.swift in Sources */,
 				0104F3AD2805DBDD00371141 /* encodableEX.swift in Sources */,
 				0104F3AC2805DBDD00371141 /* viewEX.swift in Sources */,
@@ -458,12 +488,14 @@
 				0104F33D2805DAAC00371141 /* SceneDelegate.swift in Sources */,
 				0104F38C2805DBC500371141 /* API URls.swift in Sources */,
 				0104F3B82805DBE900371141 /* ConvertCurrencyViewModel.swift in Sources */,
+				01B2B4F4280788E00078B349 /* HistoricalVC.swift in Sources */,
 				0104F3BA2805DBE900371141 /* ConvertCurrencyVC.swift in Sources */,
 				0104F38D2805DBC500371141 /* API.swift in Sources */,
 				0190C34128067B2C00B2BB06 /* Protocol.swift in Sources */,
 				0104F3A52805DBDD00371141 /* imageViewEX.swift in Sources */,
 				0104F3A92805DBDD00371141 /* DateEX.swift in Sources */,
 				0104F3B92805DBE900371141 /* ConvertCurrencyModel.swift in Sources */,
+				01B2B4E32807414A0078B349 /* InternetConnection.swift in Sources */,
 				0104F3A62805DBDD00371141 /* viewControllerEX.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
