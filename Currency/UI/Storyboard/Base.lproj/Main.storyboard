@@ -236,23 +236,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XGa-rV-tw3">
-                                <rect key="frame" x="0.0" y="88" width="414" height="150"/>
-                                <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="Qn9-Km-hgT"/>
-                                </constraints>
-                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j82-SO-enb">
+                                <rect key="frame" x="0.0" y="107" width="414" height="755"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="oh3-rS-Mu3">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XCi-zj-xSi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="XGa-rV-tw3" firstAttribute="top" secondItem="XCi-zj-xSi" secondAttribute="top" id="Qbb-04-LzT"/>
-                            <constraint firstItem="XGa-rV-tw3" firstAttribute="leading" secondItem="XCi-zj-xSi" secondAttribute="leading" id="Yyn-V6-aWj"/>
-                            <constraint firstItem="XCi-zj-xSi" firstAttribute="trailing" secondItem="XGa-rV-tw3" secondAttribute="trailing" id="beP-QD-JDx"/>
+                            <constraint firstItem="j82-SO-enb" firstAttribute="leading" secondItem="XCi-zj-xSi" secondAttribute="leading" id="Do7-f5-YF6"/>
+                            <constraint firstItem="XCi-zj-xSi" firstAttribute="trailing" secondItem="j82-SO-enb" secondAttribute="trailing" id="aQq-Zu-jKl"/>
+                            <constraint firstItem="XCi-zj-xSi" firstAttribute="bottom" secondItem="j82-SO-enb" secondAttribute="bottom" id="ffj-6T-jGF"/>
+                            <constraint firstItem="j82-SO-enb" firstAttribute="top" secondItem="XCi-zj-xSi" secondAttribute="top" constant="19" id="xxs-EC-aS2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Mt0-xg-JqJ"/>
+                    <connections>
+                        <outlet property="HistoricalTableView" destination="j82-SO-enb" id="TT9-qM-oGX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="55s-ud-HRK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -282,9 +288,6 @@
         <image name="up-and-down-opposite-double-arrows-side-by-side" width="16" height="16"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGroupedBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

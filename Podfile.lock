@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (5.0.5)
   - AnimatableReload (0.2.0)
+  - HCLineChartView (1.0.2)
   - IQKeyboardManager (6.5.9)
   - RxCocoa (5.1.3):
     - RxRelay (~> 5)
@@ -16,6 +17,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.3)
   - AnimatableReload
+  - HCLineChartView
   - IQKeyboardManager
   - RxCocoa (~> 5.1.0)
   - RxSwift (~> 5.1.0)
@@ -26,6 +28,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AnimatableReload
+    - HCLineChartView
     - IQKeyboardManager
     - RxCocoa
     - RxRelay
@@ -36,6 +39,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
   AnimatableReload: 9576d3019bfb103f76b5f37fa6f8915bd8307527
+  HCLineChartView: a57d519fc937bc9e17d870d61fca2703d30e1a28
   IQKeyboardManager: 241cc94ccabc9deb8f8bd7d12f00d73288d13ecc
   RxCocoa: e2ed092d5432e4296aa818021d27de4090ac0354
   RxRelay: 5a18c2eb2d68326ebaf0112f80d837ae41b92b97
@@ -43,6 +47,6 @@ SPEC CHECKSUMS:
   SDWebImage: 0905f1b7760fc8ac4198cae0036600d67478751e
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 61b1416a0cd3dbb18408700f31c990702b4970ee
+PODFILE CHECKSUM: 121b2f46ceb4f664af298571653de2ec5a42caea
 
 COCOAPODS: 1.11.2

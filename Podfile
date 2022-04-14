@@ -12,7 +12,7 @@ target 'Currency' do
   pod 'Alamofire', '~> 5.0.0-rc.3'
   pod 'SwiftyJSON'
   pod 'IQKeyboardManager'
-  pod 'SwiftCharts', '~> 0.6.5'
+  pod 'HCLineChartView'
 
 
 end

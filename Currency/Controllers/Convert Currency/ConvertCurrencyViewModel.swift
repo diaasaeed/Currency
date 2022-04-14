@@ -109,6 +109,7 @@ class ConvertCurrencyViewModel{
         myConvertCurrencyOBJ.toCounrty = self.currenCycountry[countryToIndex].country ?? ""
         myConvertCurrencyOBJ.fromCurrency = currencyFrom
         myConvertCurrencyOBJ.toCurrency = currencyTo
+        myConvertCurrencyOBJ.amount = fromCurrencyValue
     }
     
     
@@ -126,6 +127,8 @@ class ConvertCurrencyViewModel{
         myConvertCurrencyOBJ.toCounrty = "EGP"
         myConvertCurrencyOBJ.fromCurrency = currencyFrom
         myConvertCurrencyOBJ.toCurrency = currencyTo
+        myConvertCurrencyOBJ.amount = fromCurrencyValue
+
     }
     
     
