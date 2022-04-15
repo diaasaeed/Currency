@@ -18,6 +18,7 @@ class ConvertCurrencyModel:Codable{
 struct ErrorModel : Codable {
     var code: Int?
     var type: String?
+    var info:String?
 }
 
 

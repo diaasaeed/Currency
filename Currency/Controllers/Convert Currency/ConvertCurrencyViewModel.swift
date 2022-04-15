@@ -13,8 +13,13 @@ import Alamofire
 class ConvertCurrencyViewModel{
     
     //MARK: - variables
-    var error:ErrorProtocol?
 
+    // error
+    private var error = PublishSubject<String>()
+    var errorObservable : Observable<String>{
+        return error
+    }
+    
     //  selected counrty
     private var Country = PublishSubject<String>()
     var CountryStringObservable : Observable<String>{
@@ -53,7 +58,6 @@ class ConvertCurrencyViewModel{
         return DefaultCurrency
     }
     
-    
     var myConvertCurrencyOBJ = MyConvertCurrencyOBJ()
     
     //MARK:- request get all currency
@@ -83,7 +87,8 @@ class ConvertCurrencyViewModel{
                     self.getDefaultCurrency()
                 }else{
                     // in status false
-                    self.error?.featching(error: data.error?.type ?? "")
+                    print("Error apis is",data.error?.info ?? "")
+                    self.error.onNext(data.error?.info ?? "")
                 }
             }
         }

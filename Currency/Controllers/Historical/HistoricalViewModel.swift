@@ -11,7 +11,11 @@ import RxCocoa
 import RxSwift
 
 class HistoricalViewModel{
-    var error:ErrorProtocol?
+    //error
+    private var error = PublishSubject<String>()
+    var errorObservable : Observable<String>{
+        return error
+    }
     var popularCurrencies = ["EUR","JPY","GBP","AUD","CAD" , "USD","CHF","CNH","HKD","NZD","EGP"] // popular Currencies
     var ConvertCurrencyData = MyConvertCurrencyOBJ() // array of country code
     let myGroup = DispatchGroup()
@@ -103,7 +107,7 @@ class HistoricalViewModel{
                    
                 }else{
                     // in status false
-                    self.error?.featching(error: data.error?.type ?? "")
+                    self.error.onNext(data.error?.info ?? "")
                 }
             }
             self.myGroup.leave()
@@ -168,7 +172,7 @@ class HistoricalViewModel{
                     self.popularCurrenciesFilter()
                 }else{
                     // in status false
-                    self.error?.featching(error: data.error?.type ?? "")
+                    self.error.onNext(data.error?.info ?? "")
                 }
             }
         }

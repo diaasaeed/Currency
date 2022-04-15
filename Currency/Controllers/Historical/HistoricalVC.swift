@@ -39,6 +39,7 @@ class HistoricalVC: UIViewController {
         subscribepopularCurrency()
         subscribeChartValue()
         subscribeChartDate()
+        subscribeErrorMessage()
      }
     
     func setXIB(){
@@ -74,11 +75,13 @@ class HistoricalVC: UIViewController {
             self.HistoricalTableView.reloadData()
         }).disposed(by: disposeBag)
     }
-}
-
-//MARK: - error
-extension HistoricalVC:ErrorProtocol{
-    func featching(error: String) {
-        self.showAlert(withTitle: false, msg: error, compilition: nil)
+    
+    //error
+    func subscribeErrorMessage(){
+        self.viewModel.errorObservable.subscribe(onNext: { (message) in
+            self.showActionAlert(msg: message)
+        }).disposed(by: disposeBag)
     }
 }
+
+ 

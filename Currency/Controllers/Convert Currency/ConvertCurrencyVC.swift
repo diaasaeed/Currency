@@ -42,17 +42,15 @@ class ConvertCurrencyVC: UIViewController{
         currencyToTF.isUserInteractionEnabled = false
         self.navigationItem.title = "Convert Currency"
         
-        let tapFrom = UITapGestureRecognizer(target: self, action: #selector(self.handleTapFrom(_:)))
-        viewFrom.addGestureRecognizer(tapFrom)
-        let tapTo = UITapGestureRecognizer(target: self, action: #selector(self.handleTapTo(_:)))
-        viewTo.addGestureRecognizer(tapTo)
-        
-        currencyFromTF.addTarget(self, action: #selector(fromTFAction(_:)),for: .editingChanged)
-        
-        pickerView = UIPickerView.init()
-        
         //Check internet connection
         if Reachability.isConnectedToNetwork(){
+            pickerView = UIPickerView.init()
+            let tapFrom = UITapGestureRecognizer(target: self, action: #selector(self.handleTapFrom(_:)))
+            viewFrom.addGestureRecognizer(tapFrom)
+            let tapTo = UITapGestureRecognizer(target: self, action: #selector(self.handleTapTo(_:)))
+            viewTo.addGestureRecognizer(tapTo)
+            currencyFromTF.addTarget(self, action: #selector(fromTFAction(_:)),for: .editingChanged)
+            
             self.callAllFunctions()
         }else{
             self.showAlert(withTitle: false, msg: "No internet connections", compilition: nil)
@@ -108,6 +106,7 @@ class ConvertCurrencyVC: UIViewController{
         subscribeValueCounrty()
         subscribeDefaultValue()
         subscribeTotalCurrency()
+        subscribeErrorMessage()
     }
     
     //Picekr view 
@@ -160,6 +159,7 @@ class ConvertCurrencyVC: UIViewController{
         }).disposed(by: disposeBag)
     }
     
+    
     // Switch
     func switchCurrency(){
         self.viewModel.switchCurrency()
@@ -173,12 +173,12 @@ class ConvertCurrencyVC: UIViewController{
         self.currencyFromTF.text = self.currencyToTF.text ?? ""
         self.currencyToTF.text  = swipValue
     }
-}
-
-
-//MARK: - error 
-extension ConvertCurrencyVC: ErrorProtocol{
-    func featching(error: String) {
-        self.showAlert(withTitle: false, msg: error, compilition: nil)
+    
+    //error
+    func subscribeErrorMessage(){
+        self.viewModel.errorObservable.subscribe(onNext: { (message) in
+            self.showActionAlert(msg: message)
+        }).disposed(by: disposeBag)
     }
 }
+ 
