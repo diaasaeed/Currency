@@ -21,6 +21,7 @@ extension HistoricalVC: UITableViewDelegate , UITableViewDataSource{
             chart.chartCurrency.drawChart()
             
             return chart
+            
         }else{
             let cell = self.HistoricalTableView.dequeueReusableCell(withIdentifier: "CurrencyHistoricalCell", for: indexPath) as! CurrencyHistoricalCell
             

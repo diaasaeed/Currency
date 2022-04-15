@@ -20,7 +20,7 @@ class HistoricalVC: UIViewController {
     let disposeBag = DisposeBag()
     var lastThreeDays = [String]()
     var popularCurrency = [String]()
-    var chartDate = [Date]()
+    var chartDate = [Double]()
     var chartValue = [Double]()
     
     //MARK: - view did load

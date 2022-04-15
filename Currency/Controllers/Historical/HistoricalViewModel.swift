@@ -34,9 +34,9 @@ class HistoricalViewModel{
 
     // Chart Date
     var indexDay = 1 // use it to chart
-    var dateChart = [Date]()
-    private var ChartDateModelSubject = PublishSubject<[Date]>() // use it to chart
-    var ChartDateObservable : Observable<[Date]>{ // use it to chart
+    var dateChart = [Double]()
+    private var ChartDateModelSubject = PublishSubject<[Double]>() // use it to chart
+    var ChartDateObservable : Observable<[Double]>{ // use it to chart
         return ChartDateModelSubject
     }
     
@@ -122,10 +122,14 @@ class HistoricalViewModel{
         
         //chart
         let date = Calendar.current.date(byAdding: .day, value: -(self.indexDay), to: Date())
-    
-        self.indexDay+=1
+        self.indexDay+=1 // to get perivuos Day
         let CurrentData = date?.toString(withFormat: "YYYY MMM dd") ?? ""
-        self.dateChart.append(date ?? Date()) //apped chart Date in array because it get from 3 call api
+        let day = date?.get(.day) ?? 0
+        let month = date?.get(.month) ?? 0
+        let dayMonth = Double("\(day).\(month)") ?? 0
+        print("Date chart is", dayMonth)
+
+        self.dateChart.append(dayMonth) //apped chart Date in array because it get from 3 call api
         self.ChartDateModelSubject.onNext(self.dateChart)//chart Date
         self.valueChart.append(result) //apped chart value in array because it get from 3 call api
         self.ChartvalueModelSubject.onNext(valueChart)//chart value
@@ -190,3 +194,13 @@ class HistoricalViewModel{
     
 }
 
+
+extension Date {
+    func get(_ components: Calendar.Component..., calendar: Calendar = Calendar.current) -> DateComponents {
+        return calendar.dateComponents(Set(components), from: self)
+    }
+
+    func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
+        return calendar.component(component, from: self)
+    }
+}
