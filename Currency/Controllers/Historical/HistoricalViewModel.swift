@@ -11,45 +11,35 @@ import RxCocoa
 import RxSwift
 
 class HistoricalViewModel{
+
+    var popularCurrencies = ["EUR","JPY","GBP","AUD","CAD" , "USD","CHF","CNH","HKD","NZD","EGP"] // popular Currencies
+    var ConvertCurrencyData = MyConvertCurrencyOBJ() // array of country code
+    let myGroup = DispatchGroup()
+
+
+    var popularCurrencycountry = [CountryCurrency]()
+    var lastCurrencyArr = [String]()
+    var LastCurrencycountry = [CountryCurrency]()
+ 
+    // Chart Date
+    var indexDay = 1 // use it to chart
+    var dateChart = [Double]()
+    var valueChart = [Double]()
+
+    
     //error
     private var error = PublishSubject<String>()
     var errorObservable : Observable<String>{
         return error
     }
-    var popularCurrencies = ["EUR","JPY","GBP","AUD","CAD" , "USD","CHF","CNH","HKD","NZD","EGP"] // popular Currencies
-    var ConvertCurrencyData = MyConvertCurrencyOBJ() // array of country code
-    let myGroup = DispatchGroup()
-
-    //all currency
-    var popularCurrencycountry = [CountryCurrency]()
-    private var otherCurrenciesModelSubject = PublishSubject<[String]>()
-    var otherCurrenciesObservable : Observable<[String]>{
-        return otherCurrenciesModelSubject
-    }
     
     
-    // last three days
-    var lastCurrencyArr = [String]()
-    var LastCurrencycountry = [CountryCurrency]()
-    private var LastCurrencyModelSubject = PublishSubject<[String]>()
-    var LastCurrencyObservable : Observable<[String]>{
-        return LastCurrencyModelSubject
-    }
-
-    // Chart Date
-    var indexDay = 1 // use it to chart
-    var dateChart = [Double]()
-    private var ChartDateModelSubject = PublishSubject<[Double]>() // use it to chart
-    var ChartDateObservable : Observable<[Double]>{ // use it to chart
-        return ChartDateModelSubject
+    var historicalModel = [HistoricalModel(),HistoricalModel()]
+    private var HistorcalModelSubject = PublishSubject<[HistoricalModel]>()
+    var HistorcalObservable : Observable<[HistoricalModel]>{
+        return HistorcalModelSubject
     }
     
-    // Chart Value
-    var valueChart = [Double]()
-    private var ChartvalueModelSubject = PublishSubject<[Double]>() // use it to chart
-    var ChartvalueObservable : Observable<[Double]>{ // use it to chart
-        return ChartvalueModelSubject
-    }
     
     //MARK: - when load
     func viweDidload(){
@@ -57,7 +47,7 @@ class HistoricalViewModel{
         getAllCountry()
         
         myGroup.notify(queue: DispatchQueue.main, execute: {
-            self.LastCurrencyModelSubject.onNext(self.lastCurrencyArr)
+            self.HistorcalModelSubject.onNext(self.historicalModel)
         })
     }
     
@@ -134,21 +124,25 @@ class HistoricalViewModel{
 //        print("Date chart is", dayMonth)
 
         self.dateChart.insert(dayMonth, at: 0) //apped chart Date in array because it get from 3 call api
-        self.ChartDateModelSubject.onNext(self.dateChart)//chart Date
-        self.valueChart.append(result) //apped chart value in array because it get from 3 call api
-        self.ChartvalueModelSubject.onNext(valueChart)//chart value
-        
+        self.valueChart.append((currencyTo/currencyFrom)) //apped chart value in array because it get from 3 call api
         
         // thre day
         let resultWithDate = "\(CurrentData)\n\(resultCurrency)"
         lastCurrencyArr.append(resultWithDate)
-        self.LastCurrencyModelSubject.onNext(lastCurrencyArr)
+
+        self.historicalModel[0].ChartDate = dateChart
+        self.historicalModel[0].valueChart = valueChart
+        self.historicalModel[1].lastCurrency = lastCurrencyArr
+
+//        self.historicalModel.append(historicalOBJ)
+
 
     }
  
     //MARK: - get Other Currencies
     
     func getAllCountry(){
+        myGroup.enter()
         let url = "\( URls.shared.latest)?access_key=\(access_key)"
         APIClient.shared.getData(url: url,
                                  method: .get,
@@ -175,6 +169,7 @@ class HistoricalViewModel{
                     self.error.onNext(data.error?.info ?? "")
                 }
             }
+            self.myGroup.leave()
         }
     }
     
@@ -189,7 +184,8 @@ class HistoricalViewModel{
             let totalResualt = (currecny)/(currencyBase)*(ConvertCurrencyData.amount ?? 0)
             let resultCurrency = "\(totalResualt.getTwoDigits) \(i)"
             Currencies.append(resultCurrency)
-            self.otherCurrenciesModelSubject.onNext(Currencies)
+            
+            self.historicalModel[1].popularCurrencies = Currencies
         }
     }
      

@@ -36,3 +36,11 @@ class MyConvertCurrencyOBJ{
     var amount:Double?
 }
 
+
+
+class HistoricalModel{
+    var popularCurrencies:[String]?
+    var lastCurrency:[String]?
+    var ChartDate:[Double]?
+    var valueChart:[Double]?
+}
