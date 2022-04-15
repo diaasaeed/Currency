@@ -39,19 +39,18 @@ extension ConvertCurrencyVC {
     }
     
     @objc func onDoneButtonTapped() {
-        viewModel.indexCurrencySelected = self.rowSelected
-        viewModel.getCountryTitle()
         toolBar.removeFromSuperview()
         pickerView.removeFromSuperview()
-        
+        viewModel.indexCurrencySelected = self.rowSelected
+        viewModel.getCountryTitle()
         if currencyType == .to{
             self.currencyToTF.text = ""
             self.viewModel.countryToIndex = self.rowSelected
             self.currencyFromTF.becomeFirstResponder()
         }else{
             self.viewModel.countryFromIndex = self.rowSelected
-            self.viewModel.fromCurrencyValue = Double(self.currencyFromTF.text ?? "") ?? 0.0
-            self.viewModel.calculatorCurrency()
         }
+        self.viewModel.fromCurrencyValue = Double(self.currencyFromTF.text ?? "") ?? 0.0
+        self.viewModel.calculatorCurrency()
     }
 }

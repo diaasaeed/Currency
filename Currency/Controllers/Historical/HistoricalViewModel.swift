@@ -17,14 +17,14 @@ class HistoricalViewModel{
     let myGroup = DispatchGroup()
 
 
-    var popularCurrencycountry = [CountryCurrency]()
-    var lastCurrencyArr = [String]()
-    var LastCurrencycountry = [CountryCurrency]()
+    var popularCurrencycountry = [CountryCurrency]() // country and currency  popular
+    var LastCurrencycountry = [CountryCurrency]() // country and currency last three days
+    var lastCurrencyArr = [String]() // result last three days
  
     // Chart Date
-    var indexDay = 1 // use it to chart
-    var dateChart = [Double]()
-    var valueChart = [Double]()
+    var indexDay = 1 //  chart last three days
+    var dateChart = [Double]() // date chart
+    var valueChart = [Double]() // value chart
 
     
     //error
@@ -33,7 +33,7 @@ class HistoricalViewModel{
         return error
     }
     
-    
+    // final object have all data
     var historicalModel = [HistoricalModel(),HistoricalModel()]
     private var HistorcalModelSubject = PublishSubject<[HistoricalModel]>()
     var HistorcalObservable : Observable<[HistoricalModel]>{
@@ -133,9 +133,6 @@ class HistoricalViewModel{
         self.historicalModel[0].ChartDate = dateChart
         self.historicalModel[0].valueChart = valueChart
         self.historicalModel[1].lastCurrency = lastCurrencyArr
-
-//        self.historicalModel.append(historicalOBJ)
-
 
     }
  

@@ -61,6 +61,8 @@ class ConvertCurrencyVC: UIViewController{
     //MARK: - actions
     @objc func handleTapFrom(_ sender: UITapGestureRecognizer? = nil) {
         currencyType = .from
+        toolBar.removeFromSuperview()
+        pickerView.removeFromSuperview()
         pickerViewTap()
         view.endEditing(true)
         pickerView.reloadAllComponents()
@@ -69,6 +71,8 @@ class ConvertCurrencyVC: UIViewController{
     
     @objc func handleTapTo(_ sender: UITapGestureRecognizer? = nil) {
         currencyType = .to
+        toolBar.removeFromSuperview()
+        pickerView.removeFromSuperview()
         pickerViewTap()
         view.endEditing(true)
         pickerView.reloadAllComponents()
