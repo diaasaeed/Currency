@@ -27,7 +27,7 @@ class APIClient {
                 print("Status code ->",response.response?.statusCode ?? 0)
                 switch response.result {
                 case .success(_):
-                    print("Responce ",response.value)
+//                    print("Responce ",response.value)
                     guard let data = response.data else { return }
                     do {
                         let jsonData = try JSONDecoder().decode(T.self, from: data)

@@ -244,6 +244,10 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
+                                <connections>
+                                    <outlet property="dataSource" destination="gyD-1n-3ML" id="X96-YJ-3cl"/>
+                                    <outlet property="delegate" destination="gyD-1n-3ML" id="gdR-Uc-dS2"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XCi-zj-xSi"/>
@@ -262,7 +266,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="55s-ud-HRK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1519" y="73"/>
+            <point key="canvasLocation" x="1545" y="77"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3RH-A9-xFv">
@@ -280,7 +284,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4mD-cW-OLJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="140.57971014492756" y="80.357142857142847"/>
+            <point key="canvasLocation" x="107" y="76"/>
         </scene>
     </scenes>
     <resources>

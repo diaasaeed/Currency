@@ -45,20 +45,32 @@
                             <constraint firstAttribute="bottom" secondItem="wuq-dA-9ec" secondAttribute="bottom" id="jD5-vb-UBx"/>
                         </constraints>
                     </stackView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSj-PM-FnL">
-                        <rect key="frame" x="16" y="10" width="61" height="20.5"/>
-                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Of1-PF-9zK">
+                        <rect key="frame" x="16" y="10" width="331" height="17"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 USD" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSj-PM-FnL">
+                                <rect key="frame" x="0.0" y="0.0" width="160.5" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="the rates converted to some other popular currencies" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r9t-cA-GSX">
+                                <rect key="frame" x="170.5" y="0.0" width="160.5" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Of1-PF-9zK" secondAttribute="trailing" constant="16" id="1Cf-7Z-eMy"/>
                     <constraint firstAttribute="bottom" secondItem="KBu-lk-Fdf" secondAttribute="bottom" constant="10" id="3KZ-a2-7gf"/>
                     <constraint firstAttribute="trailing" secondItem="KBu-lk-Fdf" secondAttribute="trailing" constant="10" id="PHh-nF-ODy"/>
                     <constraint firstItem="KBu-lk-Fdf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="WAl-Li-QUJ"/>
-                    <constraint firstItem="hSj-PM-FnL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="hLj-6n-ThC"/>
-                    <constraint firstItem="KBu-lk-Fdf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="40" id="nAg-nE-0Ln"/>
-                    <constraint firstItem="hSj-PM-FnL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="nXq-hE-GB0"/>
+                    <constraint firstItem="KBu-lk-Fdf" firstAttribute="top" secondItem="Of1-PF-9zK" secondAttribute="bottom" constant="13" id="Xbo-8x-yMk"/>
+                    <constraint firstItem="Of1-PF-9zK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ony-b1-l9v"/>
+                    <constraint firstItem="Of1-PF-9zK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="rQn-gD-I4H"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

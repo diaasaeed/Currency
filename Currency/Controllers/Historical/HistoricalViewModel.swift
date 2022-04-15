@@ -127,9 +127,9 @@ class HistoricalViewModel{
         let day = date?.get(.day) ?? 0
         let month = date?.get(.month) ?? 0
         let dayMonth = Double("\(day).\(month)") ?? 0
-        print("Date chart is", dayMonth)
+//        print("Date chart is", dayMonth)
 
-        self.dateChart.append(dayMonth) //apped chart Date in array because it get from 3 call api
+        self.dateChart.insert(dayMonth, at: 0) //apped chart Date in array because it get from 3 call api
         self.ChartDateModelSubject.onNext(self.dateChart)//chart Date
         self.valueChart.append(result) //apped chart value in array because it get from 3 call api
         self.ChartvalueModelSubject.onNext(valueChart)//chart value
@@ -188,19 +188,6 @@ class HistoricalViewModel{
             self.otherCurrenciesModelSubject.onNext(Currencies)
         }
     }
-    
- 
-    
-    
+     
 }
 
-
-extension Date {
-    func get(_ components: Calendar.Component..., calendar: Calendar = Calendar.current) -> DateComponents {
-        return calendar.dateComponents(Set(components), from: self)
-    }
-
-    func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
-        return calendar.component(component, from: self)
-    }
-}

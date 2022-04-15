@@ -44,23 +44,22 @@ class ConvertCurrencyVC: UIViewController{
         
         let tapFrom = UITapGestureRecognizer(target: self, action: #selector(self.handleTapFrom(_:)))
         viewFrom.addGestureRecognizer(tapFrom)
-        
         let tapTo = UITapGestureRecognizer(target: self, action: #selector(self.handleTapTo(_:)))
         viewTo.addGestureRecognizer(tapTo)
         
         currencyFromTF.addTarget(self, action: #selector(fromTFAction(_:)),for: .editingChanged)
-
+        
         pickerView = UIPickerView.init()
-
+        
         //Check internet connection
         if Reachability.isConnectedToNetwork(){
             self.callAllFunctions()
         }else{
             self.showAlert(withTitle: false, msg: "No internet connections", compilition: nil)
         }
-     }
+    }
     
- 
+    
     //MARK: - actions
     @objc func handleTapFrom(_ sender: UITapGestureRecognizer? = nil) {
         currencyType = .from
@@ -89,14 +88,18 @@ class ConvertCurrencyVC: UIViewController{
     
     @IBAction func detailsBTN(_ sender: Any) {
         view.endEditing(true)
-        let historical = self.storyboard?.instantiateViewController(withIdentifier: "HistoricalVC") as! HistoricalVC
-        historical.ConvertCurrencyData = self.viewModel.myConvertCurrencyOBJ
-        self.navigationController?.pushViewController(historical, animated: true)
+        if Reachability.isConnectedToNetwork(){
+            let historical = self.storyboard?.instantiateViewController(withIdentifier: "HistoricalVC") as! HistoricalVC
+            historical.ConvertCurrencyData = self.viewModel.myConvertCurrencyOBJ
+            self.navigationController?.pushViewController(historical, animated: true)
+        }else{
+            self.showAlert(withTitle: false, msg: "No internet connections", compilition: nil)
+        }
     }
     
     
     //MARK: - funtions
-   
+    
     
     func callAllFunctions(){
         viewModel.getCountry()
@@ -140,14 +143,14 @@ class ConvertCurrencyVC: UIViewController{
         }).disposed(by: disposeBag)
     }
     
- 
+    
     //Set default value when open app at frist time
     func subscribeDefaultValue(){
         self.viewModel.DefaultCurrencyDoubleObservable.subscribe(onNext: { (value) in
             self.currencyToTF.text = "\(value.getTwoDigits)" // EGP
             self.currencyFromTF.text = "\(1)" // USD
         }).disposed(by: disposeBag)
-
+        
     }
     
     // Get convert currency
@@ -156,7 +159,7 @@ class ConvertCurrencyVC: UIViewController{
             self.currencyToTF.text = "\(value.getTwoDigits)"
         }).disposed(by: disposeBag)
     }
- 
+    
     // Switch
     func switchCurrency(){
         self.viewModel.switchCurrency()
